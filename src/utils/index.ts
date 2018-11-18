@@ -6,7 +6,6 @@
 export const getStandardDeviation = (args: number[]): number => {
   if (!args) { return -1; }
   if (args.length <= 1) { return 0; }
-  const sum = args.reduce((value, item) => value + item, 0);
   const mean = getMean(args);
   const meanDiff = args.map((item) => Math.pow(item - mean, 2)).reduce((value, item) => value + item, 0);
 
