@@ -1,0 +1,30 @@
+{
+    "extends": "tslint-microsoft-contrib",
+    "rules": {
+        "ordered-imports": false,
+        "no-implicit-dependencies": false,
+        "missing-jsdoc": false,
+        "no-submodule-imports": false,
+        "prefer-type-cast": false,
+        "no-import-side-effect": false,
+        "typedef": [
+            true,
+            "call-signature",
+            "parameter",
+            "arrow-call-signature",
+            "member-variable-declaration",
+            "property-declaration"
+        ],
+        "switch-final-break": false,
+        "react-this-binding-issue": false,
+        "export-name": false,
+        "no-any": {
+            "severity": "warning",
+            "options": [true]
+        },
+        "no-relative-imports": {
+            "severity": "warning",
+            "options": [true]
+        }
+    }
+}
