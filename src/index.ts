@@ -24,5 +24,6 @@ type Evaluation = {
  * ...
  * @param log log of the readings
  */
-export const evaluateLogFile(log: string): Evaluation {
-}
+export const evaluateLogFile = (log: string): Evaluation  => {
+  return null;
+};
