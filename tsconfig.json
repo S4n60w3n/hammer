@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+      "outDir": "./build/",
+      "sourceMap": true,
+      "noImplicitAny": true,
+      "module": "commonjs",
+      "target": "es5",
+      "allowSyntheticDefaultImports": false,
+      "baseUrl": "./",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "types": [
+        "jest",
+      ],
+      "lib": [
+        "dom",
+        "es5",
+        "es6",
+      ],
+      "paths": {
+        "*": ["./src/*"],
+      }
+  },
+  "include": [
+    "src",
+  ]
+}
