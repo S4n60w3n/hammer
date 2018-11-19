@@ -1,5 +1,5 @@
-import { parseInput, Reading } from 'Parser';
-import { getStandardDeviation, getMean } from 'utils';
+import { parseInput, Reading } from './Parser';
+import { getStandardDeviation, getMean } from './utils';
 
 type ErrorType = 'error';
 type ThermometerResult = 'ultra precise' | 'very precise' | 'precise';
