@@ -93,6 +93,18 @@ thermometer temp
 2007-04-05T22:01 69.5
 `);
       expect(result.readings.temp.data[0].value).toBe(69.5);
+      expect(result.refs_therm).toBe(70);
+      expect(result.refs_hum).toBe(45);
+    });
+
+    it('Reference with float', () => {
+      const result = parseInput(`
+reference 70.1 45.5
+thermometer temp
+2007-04-05T22:01 69.5
+`);
+      expect(result.refs_therm).toBe(70.1);
+      expect(result.refs_hum).toBe(45.5);
     });
 
     it('Ends without newLine', () => {

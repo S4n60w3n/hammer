@@ -21,7 +21,7 @@ const HUMIDITY = 'humidity';
 const UNNAMED = 'unnamed';
 
 const READING_REGEX = `(${THERMOMETER}|${HUMIDITY})\\s*(.*)`;
-const REFERENCE_REGEX = `\^\\s*reference\\s+(.*)\\s+(.*)`;
+const REFERENCE_REGEX = `\^\\s*reference\\s+(\\S+)\\s+(\\S+)`;
 
 /**
  * Parse log
@@ -31,8 +31,8 @@ export const parseInput = (input: string): InputResult => {
   const refRegexResult = input.match(REFERENCE_REGEX);
   if (!refRegexResult) { return null; }
   const ret: InputResult = {
-    refs_therm: parseInt(refRegexResult[1], 10),
-    refs_hum: parseInt(refRegexResult[2], 10),
+    refs_therm: parseFloat(refRegexResult[1]),
+    refs_hum: parseFloat(refRegexResult[2]),
     readings: {}
   };
   let reading: Reading = null;
