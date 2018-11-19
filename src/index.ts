@@ -1,8 +1,12 @@
+import { parseInput, Reading } from 'Parser';
+import { getStandardDeviation, getMean } from 'utils';
+
+type ErrorType = 'error';
 type ThermometerResult = 'ultra precise' | 'very precise' | 'precise';
 type HumidityResult = 'keep' | 'discard';
-
+type EvaluationResult = ThermometerResult | HumidityResult | ErrorType;
 type Evaluation = {
-  [name: string]: ThermometerResult | HumidityResult;
+  [name: string]: EvaluationResult;
 };
 
 /**
@@ -25,5 +29,47 @@ type Evaluation = {
  * @param log log of the readings
  */
 export const evaluateLogFile = (log: string): Evaluation  => {
-  return null;
+  const parseResult = parseInput(log);
+  if (!parseResult) { return null; }
+  const { refs_therm, refs_hum } = parseResult;
+
+  return Object.keys(parseResult.readings).reduce(
+    (result: Evaluation, item) => {
+      result[item] = evaluate(refs_therm, refs_hum, parseResult.readings[item]);
+
+      return result;
+    },
+    {});
+};
+
+const evaluate = (refsTherm: number, refsHum: number, reading: Reading): EvaluationResult => {
+  switch (reading.readingType) {
+    case 'thermometer': return evaluateTherm(refsTherm, reading.data.map(item => item.value));
+    case 'humidity': return evaluateHum(refsHum, reading.data.map(item => item.value));
+    default: return 'error';
+  }
+};
+
+const evaluateTherm = (value: number, values: number[]): EvaluationResult => {
+  if (!value) { return 'error'; }
+  const mean = getMean(values);
+  if (Math.abs(value - mean) > 0.5) { return 'precise'; }
+  const deviation = getStandardDeviation(values);
+  if (deviation < 3) { return 'ultra precise'; }
+  if (deviation < 5) { return 'very precise'; }
+
+  return 'precise';
+};
+
+const evaluateHum = (value: number, values: number[]): EvaluationResult => {
+  if (!value) { return 'error'; }
+  for (const item of values) {
+    if (!item && item !== 0) {
+      return 'error';
+    }
+    const diff = Math.abs(value - item);
+    if (diff >= 1) { return 'discard'; }
+  }
+
+  return 'keep';
 };

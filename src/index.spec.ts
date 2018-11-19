@@ -36,11 +36,37 @@ humidity hum-2
 
 describe('evaluateLogFile', () => {
   it('Example', () => {
-    expect(evaluateLogFile(EXAMPLE)).toBe({
+    expect(evaluateLogFile(EXAMPLE)).toEqual({
       'temp-1': 'precise',
       'temp-2': 'ultra precise',
       'hum-1': 'keep',
       'hum-2': 'discard'
       });
+  });
+
+  describe('Error', () => {
+    it('Empty', () => {
+      expect(evaluateLogFile(``)).toBe(null);
+    });
+
+    it('null', () => {
+      expect(evaluateLogFile(null)).toBe(null);
+    });
+
+    it('undefined', () => {
+      expect(evaluateLogFile(undefined)).toBe(null);
+    });
+
+    it('start without reference', () => {
+      expect(evaluateLogFile('Random text')).toBeNull();
+    });
+
+    it('Reference without data', () => {
+      expect(evaluateLogFile('Reference')).toBeNull();
+    });
+
+    it('Reference without numberic data', () => {
+      expect(evaluateLogFile('Reference a2 2')).toBeNull();
+    });
   });
 });

@@ -1,5 +1,6 @@
-import { parseInput } from './Parser';
+import { parseInput, Reading } from './Parser';
 
 export {
-  parseInput
+  parseInput,
+  Reading
 };
